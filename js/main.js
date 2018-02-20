@@ -22,7 +22,7 @@ var pushAll = document.getElementById('push-all-words');
 
 var help = document.getElementById('help');
 
-var refrash = document.getElementById('refrash');
+var refresh = document.getElementById('refresh');
 
 var pushElem = document.getElementById('push-elements');
 
@@ -30,7 +30,8 @@ var strWords = 'dog caine собака fox vulpe лиса cat pisica кошка'
 
 var arrWords = randomArrElements(groupArr(strWords.split(' '), 3));
 
-var j, numFloat, allInputsResult, prime = 0, next = 1;
+var j, numFloat, allInputsResult, prime = 0,
+    next = 1;
 
 var arrResult = [];
 
@@ -40,143 +41,142 @@ pushAll.value += ' ' + arrWords.length + ' words'
 enterNum.addEventListener('mouseout', pushNumInPushButton);
 push.addEventListener('click', pushButton);
 pushAll.addEventListener('click', pushButtonAll);
-refrash.addEventListener('click', refrashDoc);
+refresh.addEventListener('click', refreshDoc);
 changeLang.addEventListener('click', togglePosition);
 direction.addEventListener('click', togglePosition);
 
-function togglePosition(){
-  if (changeLang.checked == false && direction.checked == false){
-    prime = 0;
-    next = 1;
-    innerLang.innerHTML = 'Ro';
-    innerDirection.innerHTML = 'En to Ro';
-  }
-  
-  if (changeLang.checked == false && direction.checked == true){
-    prime = 1;
-    next = 0;
-    innerLang.innerHTML = 'Ro';
-    innerDirection.innerHTML = 'Ro to En';
-  }
-  
-  if (changeLang.checked == true && direction.checked == false){
-    prime = 0;
-    next = 2;
-    innerLang.innerHTML = 'Ru';
-    innerDirection.innerHTML = 'En to Ru';
-  }
-
-  if (changeLang.checked == true && direction.checked == true){
-    prime = 2;
-    next = 0;
-    innerLang.innerHTML = 'Ru';
-    innerDirection.innerHTML = 'Ru to En';
-  }
-}
-
-function pushElements(){
-  header.style.display = 'none';
-  hideBlock.style.display = 'block';
-  
-  for (var i = 0; i < numFloat; i++){
-    var div = document.createElement('div');
-    var span = document.createElement('span');
-    var input = document.createElement('input');
-    input.addEventListener('keyup', checkResult);
-
-    span.innerHTML = arrWords[i][prime] + ' : ';
-    
-    div.appendChild(span);
-    div.appendChild(input);
-    
-    pushElem.appendChild(div);
-  }
-}
-
-function checkResult(){
-  allInputsResult = pushElem.querySelectorAll('input');
-  
-  for (var i = 0; i < allInputsResult.length; i++){
-    if (allInputsResult[i].value != ''){
-      arrResult[i] = allInputsResult[i].value;
+function togglePosition() {
+    if (changeLang.checked == false && direction.checked == false) {
+        prime = 0;
+        next = 1;
+        innerLang.innerHTML = 'Ro';
+        innerDirection.innerHTML = 'En to Ro';
     }
-  }
-  
-  for (j = 0; j < arrResult.length; j++){
-    if (arrWords[j][next] == allInputsResult[j].value){
-    allInputsResult[j].style.border = '2px solid green';
+
+    if (changeLang.checked == false && direction.checked == true) {
+        prime = 1;
+        next = 0;
+        innerLang.innerHTML = 'Ro';
+        innerDirection.innerHTML = 'Ro to En';
     }
-    else{
-      allInputsResult[j].style.border = '2px solid red';
-      help.addEventListener('click', helpElem);
-    }  
-  }
-    
-}
 
-function helpElem(){
-  allInputsResult[j-1].value = arrWords[j-1][next];
-  allInputsResult[j-1].style.border = '2px solid green';
-}
-
-function pushButton(){
-  numFloat = Number(enterNum.value);
-  pushElements();
-  push.removeEventListener('click', pushButton);
-  pushAll.removeEventListener('click', pushButtonAll);
-  
-}
-
-function pushButtonAll(){
-  numFloat = arrWords.length;
-  pushElements();
-  push.removeEventListener('click', pushButton);
-  pushAll.removeEventListener('click', pushButtonAll);
-}
-
-function groupArr(arrName, num_in_group){ 
-  var newArr = [];
-  
-  for (var i = 0; i < arrName.length; i++){
-    var temp = [];
-    
-    for (var j = 0; j < num_in_group; j++){
-      temp.push(arrName[i+j]);
+    if (changeLang.checked == true && direction.checked == false) {
+        prime = 0;
+        next = 2;
+        innerLang.innerHTML = 'Ru';
+        innerDirection.innerHTML = 'En to Ru';
     }
-    
-    newArr.push(temp);
-    i += j - 1;
-  }
-  
-  return newArr;
+
+    if (changeLang.checked == true && direction.checked == true) {
+        prime = 2;
+        next = 0;
+        innerLang.innerHTML = 'Ru';
+        innerDirection.innerHTML = 'Ru to En';
+    }
 }
 
-function randomArrElements(arr){
-	var randomNums = getUniqueNums(arr.length);
-	var randomArr = [];
-	for (var i = 0; i < arr.length; i++){
-		randomArr[i] = arr[randomNums[i]];
-	}
+function pushElements() {
+    header.style.display = 'none';
+    hideBlock.style.display = 'block';
 
-	function getUniqueNums(num){
-		var numRandomArr = [];
+    for (var i = 0; i < numFloat; i++) {
+        var div = document.createElement('div');
+        var span = document.createElement('span');
+        var input = document.createElement('input');
+        input.addEventListener('keyup', checkResult);
 
-		while(numRandomArr.length < num) {
-			var random = Math.floor(Math.random() * Math.floor(num));
-			if(numRandomArr.indexOf(random) != -1) continue;
-			numRandomArr[numRandomArr.length] = random;
-		}
+        span.innerHTML = arrWords[i][prime] + ' : ';
 
-		return numRandomArr;
-	}
+        div.appendChild(span);
+        div.appendChild(input);
 
-	return randomArr;
+        pushElem.appendChild(div);
+    }
 }
 
-function pushNumInPushButton(){
-  push.value = 'Push ' + enterNum.value + ' words';
+function checkResult() {
+    allInputsResult = pushElem.querySelectorAll('input');
+
+    for (var i = 0; i < allInputsResult.length; i++) {
+        if (allInputsResult[i].value != '') {
+            arrResult[i] = allInputsResult[i].value.toLowerCase();
+        }
+    }
+
+    for (j = 0; j < arrResult.length; j++) {
+        if (arrWords[j][next] == allInputsResult[j].value.toLowerCase()) {
+            allInputsResult[j].style.border = '2px solid green';
+        } else {
+            allInputsResult[j].style.border = '2px solid red';
+            help.addEventListener('click', helpElem);
+        }
+    }
+
 }
 
-function refrashDoc(){ 
-	window.location.reload();
+function helpElem() {
+    allInputsResult[j - 1].value = arrWords[j - 1][next];
+    allInputsResult[j - 1].style.border = '2px solid green';
+}
+
+function pushButton() {
+    numFloat = Number(enterNum.value);
+    pushElements();
+    push.removeEventListener('click', pushButton);
+    pushAll.removeEventListener('click', pushButtonAll);
+
+}
+
+function pushButtonAll() {
+    numFloat = arrWords.length;
+    pushElements();
+    push.removeEventListener('click', pushButton);
+    pushAll.removeEventListener('click', pushButtonAll);
+}
+
+function groupArr(arrName, num_in_group) {
+    var newArr = [];
+
+    for (var i = 0; i < arrName.length; i++) {
+        var temp = [];
+
+        for (var j = 0; j < num_in_group; j++) {
+            temp.push(arrName[i + j]);
+        }
+
+        newArr.push(temp);
+        i += j - 1;
+    }
+
+    return newArr;
+}
+
+function randomArrElements(arr) {
+    var randomNums = getUniqueNums(arr.length);
+    var randomArr = [];
+    for (var i = 0; i < arr.length; i++) {
+        randomArr[i] = arr[randomNums[i]];
+    }
+
+    function getUniqueNums(num) {
+        var numRandomArr = [];
+
+        while (numRandomArr.length < num) {
+            var random = Math.floor(Math.random() * Math.floor(num));
+            if (numRandomArr.indexOf(random) != -1) continue;
+            numRandomArr[numRandomArr.length] = random;
+        }
+
+        return numRandomArr;
+    }
+
+    return randomArr;
+}
+
+function pushNumInPushButton() {
+    push.value = 'Push ' + enterNum.value + ' words';
+}
+
+function refreshDoc() {
+    window.location.reload();
 }
