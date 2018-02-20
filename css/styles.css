@@ -69,9 +69,11 @@ input:focus {
 }
 
 input[type=submit] {
+  font-size: 20px;
   padding: 5px 20px;
   font-weight: bold;
   background-color: #24881f;
+  margin-top: 20px;
   color: #fff;
   border-radius: 30px;
   cursor: pointer;
@@ -84,10 +86,9 @@ input[type=submit]:hover {
 
 input#enter-num {
   width: 70px;
-  line-height: 2;
   font-size: 20px;
   text-align: center;
-  margin-bottom: 20px;
+  margin-bottom: 30px;
 }
 
 input#push-words {
@@ -108,8 +109,14 @@ input#help {
 }
 
 #push-elements {
+  font-size: 25px;
   margin-top: 10px;
   text-align: center;
+}
+
+#push-elements input {
+  font-size: 25px;
+  max-width: 200px;
 }
 
 #push-elements div {
