@@ -1,9 +1,14 @@
 var strWords = 'already deja уже with cu с know cunoaste знать other alt другой may putea может can putea может majority majoritatea большинство overwhelming dominant подавляющий make face делать ubiquitous omniprezent повсеместный that care чтобы must trebuie должен specify specifica указывать content continut содержание behavior comportament поведение';
 
-
 var header = document.getElementById('header');
 
+var viewWords = document.getElementById('view-words');
+
+var showAllWords = document.getElementById('show-all-words');
+
 var hideBlock = document.getElementById('hide-block');
+
+var activeBlock = document.getElementById('active-block');
 
 var numMax = document.getElementById('num-max');
 
@@ -33,7 +38,7 @@ var j, numFloat, allInputsResult, prime = 0,
     next = 1;
 
 var arrResult = [];
-
+showAllWords.style.display = 'none';
 numMax.innerHTML = arrWords.length;
 pushAll.value += ' ' + arrWords.length + ' words'
 
@@ -43,6 +48,45 @@ pushAll.addEventListener('click', pushButtonAll);
 refresh.addEventListener('click', refreshDoc);
 changeLang.addEventListener('click', togglePosition);
 direction.addEventListener('click', togglePosition);
+viewWords.addEventListener('click', viewAllWordsInTable);
+
+function viewAllWordsInTable(){
+  header.style.display = 'none';
+  showAllWords.style.display = 'inline-block';
+  hideBlock.style.display = 'block';
+  help.style.display = 'none';
+  hideBlock.addEventListener('click', showHideBlockStart);
+  
+   var tr = document.createElement('tr');
+    var firstTh = document.createElement('th');
+    var secondTh = document.createElement('th');
+    var lastTh = document.createElement('th');
+    
+    firstTh.innerHTML = 'En'
+    secondTh.innerHTML = 'Ro'
+    lastTh.innerHTML = 'Ru'
+    
+    tr.appendChild(firstTh);
+    tr.appendChild(secondTh);
+    tr.appendChild(lastTh);
+    showAllWords.appendChild(tr);
+  
+  for (var i = 0; i < arrWords.length; i++){
+    var tr = document.createElement('tr');
+    var firstTd = document.createElement('td');
+    var secondTd = document.createElement('td');
+    var lastTd = document.createElement('td');
+    
+    firstTd.innerHTML = arrWords[i][0];
+    secondTd.innerHTML = arrWords[i][1];
+    lastTd.innerHTML = arrWords[i][2];
+    
+    tr.appendChild(firstTd);
+    tr.appendChild(secondTd);
+    tr.appendChild(lastTd);
+    showAllWords.appendChild(tr);
+  }
+}
 
 function togglePosition() {
     if (changeLang.checked == false && direction.checked == false) {
@@ -77,19 +121,28 @@ function togglePosition() {
 function pushElements() {
     header.style.display = 'none';
     hideBlock.style.display = 'block';
+    hideBlock.addEventListener('click', showHideBlockStart);
 
     for (var i = 0; i < numFloat; i++) {
-        var div = document.createElement('div');
+        var tr = document.createElement('tr');
+      
+        var firstTd = document.createElement('td');
+        var secondTd = document.createElement('td');
+      
         var span = document.createElement('span');
         var input = document.createElement('input');
         input.addEventListener('keyup', checkResult);
 
         span.innerHTML = arrWords[i][prime] + ' : ';
+        
+        firstTd.appendChild(span);
+        
+        secondTd.appendChild(input);
+        
+        tr.appendChild(firstTd);
+        tr.appendChild(secondTd);
 
-        div.appendChild(span);
-        div.appendChild(input);
-
-        pushElem.appendChild(div);
+        pushElem.appendChild(tr);
     }
 }
 
@@ -174,6 +227,20 @@ function randomArrElements(arr) {
 
 function pushNumInPushButton() {
     push.value = 'Push ' + enterNum.value + ' words';
+}
+
+function showHideBlockStart(){
+  hideBlock.style.right = '0';
+  activeBlock.style.zIndex = '-1';
+  hideBlock.removeEventListener('click', showHideBlockStart);
+  hideBlock.addEventListener('click', showHideBlockStop);
+}
+
+function showHideBlockStop(){
+  hideBlock.style.right = '-80px';
+  activeBlock.style.zIndex = '1';
+  hideBlock.addEventListener('click', showHideBlockStart);
+  hideBlock.removeEventListener('click', showHideBlockStop);
 }
 
 function refreshDoc() {
