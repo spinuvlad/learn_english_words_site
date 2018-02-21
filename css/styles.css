@@ -54,9 +54,9 @@ form label span:after {
 }
 
 .wrapper {
-  width: 80%;
+  width: 90%;
   margin: 0 auto;
-  position: relative;
+  overflow: hidden;
 }
 
 .wrapper #header {
@@ -100,29 +100,82 @@ input#help {
 }
 
 #hide-block {
-  text-align: center;
+  position: relative;
+  transition: 0.2s;
+  cursor: pointer;
   position: fixed;
-  right: 0;
+  right: -80px;
   top: 50%;
   transform: translateY(-50%);
   display: none;
 }
 
+#hide-block #active-block {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+}
+
 #push-elements {
   font-size: 25px;
   margin-top: 10px;
-  text-align: center;
+  margin: 0 auto;
+}
+
+#push-elements td {
+  display: block;
 }
 
 #push-elements input {
-  font-size: 25px;
-  max-width: 200px;
+  font-size: 20px;
+  max-width: 150px;
 }
 
-#push-elements div {
-  margin-bottom: 10px;
+#push-elements i {
+  display: inline-block;
+  cursor: pointer;
+  padding: 10px;
+  background-color: #24881f;
+  border-radius: 100%;
+  color: #fff;
+  margin-left: 10px;
+  transition: 0.2s;
+  font-style: normal;
+}
+
+#push-elements i:hover {
+  background-color: #39c931;
+}
+
+#show-all-words {
+  font-size: 25px;
+  border-collapse: collapse;
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+#show-all-words th {
+  background-color: #999;
+  color: #fff;
+}
+
+#show-all-words td {
+  border: 1px solid;
+  padding: 5px 0 5px 5px;
+}
+
+#show-all-words tr {
+  margin: 0 auto;
 }
 
 .clearfix {
   clear: both;
+}
+
+@media screen and (max-width: 500px) {
+  #show-all-words {
+    font-size: 15px;
+  }
 }
