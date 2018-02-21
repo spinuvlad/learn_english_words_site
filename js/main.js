@@ -1,4 +1,5 @@
-var strWords = 'dog caine собака fox vulpe лиса cat pisica кошка';
+var strWords = 'already deja уже with cu с know cunoaste знать  other alt другой may putea может can putea может majority majoritatea большинство overwhelming dominant подавляющий make face делать ubiquitous omniprezent повсеместный that care чтобы must trebuie должен specify specifica указывать content continut содержание behavior comportament поведение';
+
 
 var header = document.getElementById('header');
 
