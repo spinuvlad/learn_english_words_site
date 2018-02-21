@@ -27,8 +27,6 @@ var refresh = document.getElementById('refresh');
 
 var pushElem = document.getElementById('push-elements');
 
-var strWords = 'dog caine собака fox vulpe лиса cat pisica кошка';
-
 var arrWords = randomArrElements(groupArr(strWords.split(' '), 3));
 
 var j, numFloat, allInputsResult, prime = 0,
